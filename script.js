@@ -1,4 +1,12 @@
 
+const mensajeInicial = 'Empieza a adivinar...'
+const SCORE = 20
+
+
+let score
+let highScore = 0
+let secretNumber
+
 const messageField = document.querySelector('.message')
 const scoreField = document.querySelector('.score')
 const highScoreField = document.querySelector('.highscore')
@@ -9,16 +17,19 @@ const guessNumberField = document.querySelector('.guess')
 
 initProgram()
 
-messageField.textContent = mensajeInicial
-scoreField.textContent = score
-highScoreField.textContent = highScore
-secretNumberField.textContent = '?'
-
 function initProgram ()  {
-    const mensajeInicial = 'Empieza a adivinar...'
-    let score = 20
-    let highScore = highScoreField ?? 0
-    const secretNumber = Math.trunc(Math.random() * 20) +1
+    secretNumber = Math.trunc(Math.random() * 20) + 1
+    score = SCORE
+    highScore = Number(highScoreField.textContent)
+    document.body.style.backgroundColor = '#222'
+    checkButton.disabled = false
+    guessNumberField.value = ''
+    messageField.textContent = mensajeInicial
+    scoreField.textContent = 20
+    highScoreField.textContent = highScore
+    secretNumberField.textContent = '?'
+
+    //TODO: leer highScore de fichero/cookies
 }
 
 checkButton.addEventListener('click',() => {
@@ -43,11 +54,4 @@ checkButton.addEventListener('click',() => {
     }
 })
 
-againButton.addEventListener('click', () => {
-    
-    secretNumberField.textContent = '?'
-    document.body.style.backgroundColor = '#222'
-    checkButton.disabled = false
-    messageField.textContent = 'Empieza a adivinar...'
-    guessNumberField.value = ''
-})
+againButton.addEventListener('click', initProgram)
