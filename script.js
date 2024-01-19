@@ -18,9 +18,12 @@ const guessNumberField = document.querySelector('.guess')
 initProgram()
 
 function initProgram ()  {
+
+    //localstorage.getItem("highScore");
+
     secretNumber = Math.trunc(Math.random() * 20) + 1
     score = SCORE
-    highScore = Number(highScoreField.textContent)
+    highScore = localStorage.getItem('highScore') || 0
     document.body.style.backgroundColor = '#222'
     checkButton.disabled = false
     guessNumberField.value = ''
@@ -50,8 +53,10 @@ checkButton.addEventListener('click',() => {
         if(highScore < score){
             highScore = score
             highScoreField.textContent = highScore
+            localStorage.setItem('highScore', highScore)
         }
     }
 })
 
 againButton.addEventListener('click', initProgram)
+
